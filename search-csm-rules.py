@@ -5,7 +5,7 @@ apiCon = 0
 
 def create_api_connection():
     clientid     = 'xxxxxxxx'
-    clientsecret = 'abcd1234abcd1234abcd1234' 
+    clientsecret = 'abcd1234abcd1234abcd1234abcd1234' 
 
     global apiCon
     apiCon = cpapi.CPAPI()
