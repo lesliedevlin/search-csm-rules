@@ -4,8 +4,8 @@ import cpapi
 apiCon = 0
 
 def create_api_connection():
-    clientid     = 'e7479203'
-    clientsecret = '1a3663e39969e0bc696a0ab6f13c0231' 
+    clientid     = 'xxxxxxxx'
+    clientsecret = 'abcd1234abcd1234abcd1234' 
 
     global apiCon
     apiCon = cpapi.CPAPI()
@@ -27,8 +27,7 @@ def getCSM(rulestring):
 
 create_api_connection()
 
-rulestring = 'IPv6'
-#rulestring = raw_input("Enter a search string for your rule:  ")
+rulestring = raw_input("Enter a search string for your rule:  ")
 
 getCSM(rulestring)
 
