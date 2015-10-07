@@ -4,8 +4,8 @@ import cpapi
 apiCon = 0
 
 def create_api_connection():
-    clientid     = 'e7479203'
-    clientsecret = '1a3663e39969e0bc696a0ab6f13c0231' 
+
+    from config import clientid, clientsecret
 
     global apiCon
     apiCon = cpapi.CPAPI()
@@ -15,20 +15,24 @@ def create_api_connection():
 
     resp = apiCon.authenticateClient()
 
+def getPolicyName(policy_id):
+    data, authError = apiCon.doGetCSMPolicyDetails(policy_id)
+    policy_deets = data['policy']
+    return policy_deets['name']
 
 def getCSM(rulestring):
     data, authError = apiCon.doGetIssuesCSM()
     issue = data['issues']
     for issues in issue:
         if rulestring in issues['rule_key']:
-            print  "Match: Rule ID: %s\n\tRule Name: %s\n Policy ID: %s\n\n " % (issues['rule_key'], issues['name'], issues['policy_id'])
+            policy_name = getPolicyName(issues['policy_id'])
+            print  "Match:\tRule ID:\t%s\n\tRule Name:\t%s\n\tPolicy ID:\t%s\n\tPolicy Name:\t%s\n\n " % (issues['rule_key'], issues['name'], issues['policy_id'], policy_name)
 
 # MAIN
 
 create_api_connection()
 
-rulestring = 'IPv6'
-#rulestring = raw_input("Enter a search string for your rule:  ")
+rulestring = raw_input("Enter a search string for your rule:  ")
 
 getCSM(rulestring)
 
